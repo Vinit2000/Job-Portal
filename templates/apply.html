@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Apply: {{job.job_title}}</h2>
+<form method="post" enctype="multipart/form-data" class="mt-3">
+    <div class="mb-3"><lable>Cover Letter</lable><textarea name="cover_letter" class="form-control" rows="5"></textarea></div>
+    <div class="mb-3"><label>Upload Resume (PDF/DOC/DOCX)</label><input type="file" name="resume" class="form-control"></div>
+    <button class="btn btn-success">Submit Application</button>
+</form>
+{% endblock %}

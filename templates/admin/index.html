@@ -1,0 +1,13 @@
+{%extends "base.html" %}
+{%block content%}
+<h2>Admin Dashboard</h2>
+<ul>
+    <li>Total Users:{{total_users}}</li>
+    <li>Total Jobs:{{total_jobs}}</li>
+</ul>
+<p>
+    <a class="btn btn-sm btn-primary" href="{{url_for('admin_users')}}">Manage Users</a>
+    <a class="btn btn-sm btn-primary" href="{{url_for('admin_jobs')}}">Manage Jobs</a>
+</p>
+
+{%endblock%}

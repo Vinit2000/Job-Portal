@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Users</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in users %}
+            <tr>
+                <td>{{u.id}}</td>
+                <td>{{u.fullname}}</td>
+                <td>{{u.email}}</td>
+                <td>
+                    {% if u.is_admin %}
+                        <span class="badge bg-danger">Admin</span>
+                    {% endif %}
+                    {% if u.is_employer %}
+                        <span class="badge bg-info text-dark">Employer</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if u.id != current_user.id %}
+                        <form method="post" action="{{url_for('admin_delete_user', user_id=u.id)}}" onsubmit="return confirm('Delete user?');">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    {% else %}
+                        <span class="text-muted">You</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

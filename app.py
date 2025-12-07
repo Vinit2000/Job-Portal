@@ -408,4 +408,4 @@ def admin_delete_job(job_id):
 # ----- Run -----
 if __name__ == "__main__":
     print("Starting Flask app...")
-    app.run(debug=True)
+    app.run()

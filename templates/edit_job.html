@@ -1,15 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form method="post" class="mt-3">
-    <div class="mb-3"><label>Job Title</label><input type="text" name="job_title" class="form-control" value="{{job.job_title}}" required></div>
-    <div class="mb-3"><label>Company</label><input type="text" name="company" class="form-control" value="{{job.company}}" required></div>
-    <div class="mb-3"><label>Salary</label><input type="text" name="salary" class="form-control" value="{{job.salary}}" ></div>
-    <div class="mb-3"><label>Location</label><input type="text" name="location" class="form-control" value="{{job.location}}" ></div>
-    <div class="mb-3"><label>Job Type</label><input type="text" name="job_type" class="form-control" value="{{job.job_type}}" ></div>
-    <div class="mb-3"><label>Description</label><textarea name="desciption" class="form-control" rows="6" required>{{job.description}}</textarea></div>
-    <button class="btn btn-primary">Save Changes</button>
-    <a class="btn btn-secondary" href="{{url_for('job_detail', job_id=job.id)}}">Cancel</a>
-</form>
+<div class="container mt-4">
+    <h2>Edit Job</h2>
+    <form method="POST" class="mt-3">
+        <div class="mb-3">
+            <label>Job Title</label>
+            <input type="text" name="job_title" class="form-control" value="{{job.job_title}}" required>
+        </div>
+        <div class="mb-3">
+            <label>Company</label>
+            <input type="text" name="company" class="form-control" value="{{job.company}}" required>
+        </div>
+        <div class="mb-3">
+            <label>Salary</label>
+            <input type="text" name="salary" class="form-control" value="{{job.salary or ''}}">
+        </div>
+        <div class="mb-3">
+            <label>Location</label>
+            <input type="text" name="location" class="form-control" value="{{job.location or ''}}">
+        </div>
+        <div class="mb-3">
+            <label>Job Type</label>
+            <input type="text" name="job_type" class="form-control" value="{{job.job_type or ''}}">
+        </div>
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="5" required>{{job.description}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Job</button>
+        <a href="{{url_for('job_detail', job_id=job.id)}}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 
 {% endblock %}

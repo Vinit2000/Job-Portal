@@ -33,10 +33,10 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 
 # ----- Models -----
-class User(db.Model,UserMixin):
-    id = db.Column(db.Integer, primary_key = True)
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
     fullname = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100),unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
 
     # Roles
@@ -50,7 +50,7 @@ class User(db.Model,UserMixin):
 
     def check_password(self, pwd):
         return check_password_hash(self.password_hash, pwd)
-    
+
 class Job(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     job_title = db.Column(db.String(100), nullable=False)
@@ -61,21 +61,20 @@ class Job(db.Model):
     job_type = db.Column(db.String(50))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
-    posted_by_id = db.Column(db.Integer,db.ForeignKey("user.id"))
-    posted_by = db.relationship("User", backref="posted_jobs")
+    posted_by_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))
+    posted_by = db.relationship("User", backref=db.backref("posted_jobs", cascade="all, delete-orphan"))
 
 class Application(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    applicant_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    job_id = db.Column(db.Integer, db.ForeignKey("job.id"), nullable=False)
+    applicant_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    job_id = db.Column(db.Integer, db.ForeignKey("job.id", ondelete="CASCADE"), nullable=False)
     cover_letter = db.Column(db.Text)
-    #store filename only(not full path)
     resume_path = db.Column(db.String(300), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    job = db.relationship("Job", backref="applications")
-    applicant = db.relationship("User", backref="applications")
-
+    job = db.relationship("Job", backref=db.backref("applications", cascade="all, delete-orphan"))
+    applicant = db.relationship("User", backref=db.backref("applications", cascade="all, delete-orphan"))
+    
 # ----- Create DB and default admin -----
 with app.app_context():
     db.create_all()

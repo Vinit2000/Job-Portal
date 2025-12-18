@@ -94,9 +94,9 @@ The Job Portal allows multiple types of users:
 
 Follow these steps to run the project:
 
-git clone https://github.com/Vinit2000/Job-Portal.git
-cd job-portal
-python -m venv venv
-venv\Scripts\activate.ps1
-pip install -r requirements.txt
-python app.py
+- git clone https://github.com/Vinit2000/Job-Portal.git
+- cd job-portal
+- python -m venv venv
+- venv\Scripts\activate.ps1
+- pip install -r requirements.txt
+- python app.py
